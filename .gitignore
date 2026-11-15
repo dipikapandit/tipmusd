@@ -1,0 +1,24 @@
+node_modules/
+.next/
+out/
+.env
+.env*.local
+contracts/.env
+contracts/artifacts/
+contracts/cache/
+contracts/types/
+*.tsbuildinfo
+.DS_Store
+.vercel
+coverage/
+contracts/out/
+contracts/cache/
+contracts/broadcast/*/31337/
+.data/
+next-env.d.ts
+
+# demo recordings (never commit videos)
+demo/record/out/
+demo/*.mp4
+demo/*.srt
+demo/*.ass

@@ -1,0 +1,36 @@
+# Render Blueprint — TipMUSD background worker. The web app runs on Vercel (or any Next host); this process
+# expires stale tip intents, re-verifies submitted tips and indexes MUSD Transfer logs to creator wallets.
+# Without it the app still converges (GET /api/tips/{id} re-verifies; /api/cron + dashboard catch-up index),
+# the worker just makes it faster and independent of traffic.
+services:
+  - type: worker
+    name: tipmusd-worker
+    runtime: node
+    plan: starter
+    buildCommand: npm ci --include=dev
+    startCommand: npm run worker
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      # Shared Postgres (Neon) — the same DATABASE_URL as the web app.
+      - key: DATABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_MEZO_RPC_URL
+        value: https://rpc.test.mezo.org
+      - key: NEXT_PUBLIC_MUSD_ADDRESS
+        value: "0x118917a40FAF1CD7a13dB0Ef56C86De7973Ac503"
+      - key: NEXT_PUBLIC_APP_URL
+        sync: false
+      # Must match the web app (rate-limit / visitor hashing keys).
+      - key: SESSION_SECRET
+        sync: false
+      - key: CONFIRMATIONS
+        value: "1"
+      - key: WORKER_INTERVAL_MS
+        value: "10000"
+      # Optional: first block to index on a fresh DB (default head − 5000).
+      - key: INDEXER_START_BLOCK
+        sync: false

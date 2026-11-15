@@ -1,0 +1,301 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  TipMUSD tokens.
+  Neutrals: near-white with a hair of the brand hue (36), never cream. Ink is a warm near-black.
+  Brand: one vermilion. It marks primary actions, focus and the link itself. Nothing else on the site is orange.
+  Creator pages swap the accent through [data-accent] (orange, red, blue, green, violet, ink); every accent fill
+  passes 4.5:1 with its foreground in both themes.
+  Shape rule: buttons, amount chips and toggles are pills; inputs 12px; panels 20px; avatars round.
+  Status colours are semantic and always paired with a word.
+*/
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.992 0.002 40);
+  --surface: oklch(0.968 0.005 40);
+  --foreground: oklch(0.21 0.015 40);
+  --card: oklch(0.998 0.001 40);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.998 0.001 40);
+  --popover-foreground: var(--foreground);
+
+  --brand: oklch(0.57 0.19 36);
+  --brand-ink: oklch(0.52 0.18 36);
+  --brand-soft: oklch(0.955 0.025 40);
+  --brand-foreground: oklch(0.99 0.004 40);
+
+  --primary: var(--foreground);
+  --primary-foreground: var(--background);
+
+  --secondary: oklch(0.955 0.005 40);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.955 0.005 40);
+  --muted-foreground: oklch(0.47 0.015 40);
+  --accent: oklch(0.95 0.006 40);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.54 0.2 27);
+
+  --ok: oklch(0.52 0.13 155);
+  --ok-soft: oklch(0.96 0.03 155);
+  --warn: oklch(0.55 0.13 70);
+  --warn-soft: oklch(0.965 0.04 85);
+  --bad: oklch(0.54 0.2 27);
+  --bad-soft: oklch(0.965 0.025 27);
+  --idle: oklch(0.6 0.01 40);
+
+  --border: oklch(0.91 0.006 40);
+  --input: oklch(0.84 0.008 40);
+  --ring: oklch(0.57 0.19 36 / 0.45);
+
+  --shadow-panel: 0 1px 2px oklch(0.3 0.02 40 / 0.05), 0 12px 32px -18px oklch(0.3 0.02 40 / 0.18);
+}
+
+.dark {
+  --background: oklch(0.165 0.008 40);
+  --surface: oklch(0.205 0.008 40);
+  --foreground: oklch(0.955 0.004 40);
+  --card: oklch(0.2 0.008 40);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.225 0.009 40);
+  --popover-foreground: var(--foreground);
+
+  --brand: oklch(0.72 0.16 42);
+  --brand-ink: oklch(0.76 0.14 45);
+  --brand-soft: oklch(0.27 0.05 40);
+  --brand-foreground: oklch(0.18 0.02 40);
+
+  --primary: var(--foreground);
+  --primary-foreground: var(--background);
+
+  --secondary: oklch(0.25 0.008 40);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.25 0.008 40);
+  --muted-foreground: oklch(0.72 0.012 40);
+  --accent: oklch(0.26 0.009 40);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.71 0.16 25);
+
+  --ok: oklch(0.76 0.13 155);
+  --ok-soft: oklch(0.27 0.04 155);
+  --warn: oklch(0.8 0.13 75);
+  --warn-soft: oklch(0.28 0.04 75);
+  --bad: oklch(0.71 0.16 25);
+  --bad-soft: oklch(0.28 0.05 25);
+  --idle: oklch(0.62 0.01 40);
+
+  --border: oklch(0.29 0.009 40);
+  --input: oklch(0.36 0.01 40);
+  --ring: oklch(0.72 0.16 42 / 0.5);
+
+  --shadow-panel: 0 1px 2px oklch(0 0 0 / 0.3), 0 12px 32px -18px oklch(0 0 0 / 0.6);
+}
+
+/* Creator accents. Default = the brand vermilion. */
+:root,
+[data-accent="orange"] {
+  --tint: oklch(0.555 0.16 50);
+  --tint-ink: oklch(0.5 0.15 50);
+  --tint-soft: oklch(0.96 0.03 60);
+  --tint-foreground: oklch(0.99 0.004 50);
+}
+[data-accent="red"] {
+  --tint: oklch(0.55 0.2 25);
+  --tint-ink: oklch(0.5 0.19 25);
+  --tint-soft: oklch(0.96 0.025 20);
+  --tint-foreground: oklch(0.99 0.004 25);
+}
+[data-accent="blue"] {
+  --tint: oklch(0.53 0.17 258);
+  --tint-ink: oklch(0.48 0.16 258);
+  --tint-soft: oklch(0.96 0.02 255);
+  --tint-foreground: oklch(0.99 0.004 258);
+}
+[data-accent="green"] {
+  --tint: oklch(0.52 0.13 155);
+  --tint-ink: oklch(0.46 0.11 155);
+  --tint-soft: oklch(0.96 0.03 155);
+  --tint-foreground: oklch(0.99 0.004 155);
+}
+[data-accent="violet"] {
+  --tint: oklch(0.52 0.19 295);
+  --tint-ink: oklch(0.48 0.18 295);
+  --tint-soft: oklch(0.96 0.025 295);
+  --tint-foreground: oklch(0.99 0.004 295);
+}
+[data-accent="ink"] {
+  --tint: oklch(0.25 0.01 40);
+  --tint-ink: oklch(0.25 0.01 40);
+  --tint-soft: oklch(0.95 0.005 40);
+  --tint-foreground: oklch(0.99 0.004 40);
+}
+.dark,
+.dark [data-accent="orange"] {
+  --tint: oklch(0.76 0.14 55);
+  --tint-ink: oklch(0.8 0.12 58);
+  --tint-soft: oklch(0.27 0.05 50);
+  --tint-foreground: oklch(0.18 0.02 40);
+}
+.dark [data-accent="red"] {
+  --tint: oklch(0.72 0.16 25);
+  --tint-ink: oklch(0.76 0.14 25);
+  --tint-soft: oklch(0.27 0.06 25);
+  --tint-foreground: oklch(0.18 0.02 40);
+}
+.dark [data-accent="blue"] {
+  --tint: oklch(0.74 0.12 255);
+  --tint-ink: oklch(0.78 0.1 255);
+  --tint-soft: oklch(0.27 0.05 255);
+  --tint-foreground: oklch(0.18 0.02 40);
+}
+.dark [data-accent="green"] {
+  --tint: oklch(0.76 0.13 155);
+  --tint-ink: oklch(0.8 0.11 155);
+  --tint-soft: oklch(0.27 0.04 155);
+  --tint-foreground: oklch(0.18 0.02 40);
+}
+.dark [data-accent="violet"] {
+  --tint: oklch(0.74 0.13 295);
+  --tint-ink: oklch(0.78 0.11 295);
+  --tint-soft: oklch(0.27 0.06 295);
+  --tint-foreground: oklch(0.18 0.02 40);
+}
+.dark [data-accent="ink"] {
+  --tint: oklch(0.93 0.006 40);
+  --tint-ink: oklch(0.93 0.006 40);
+  --tint-soft: oklch(0.26 0.008 40);
+  --tint-foreground: oklch(0.18 0.02 40);
+}
+
+@theme inline {
+  --font-sans: var(--ff-ui), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--ff-display), var(--ff-ui), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--ff-code), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-tint: var(--tint);
+  --color-tint-ink: var(--tint-ink);
+  --color-tint-soft: var(--tint-soft);
+  --color-tint-foreground: var(--tint-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-idle: var(--idle);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --shadow-panel: var(--shadow-panel);
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01" 1;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--brand) 24%, transparent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* money, counts and dates: tabular lining figures so columns line up and live values don't jitter */
+@utility num {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* z-index scale (documented, not ad hoc) */
+:root {
+  --z-sticky: 20;
+  --z-dropdown: 30;
+  --z-overlay: 40;
+  --z-modal: 50;
+  --z-toast: 60;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* One-time entrance for the landing hero. CSS-only so it runs before hydration and never hides content. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@utility rise {
+  animation: rise 0.8s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
